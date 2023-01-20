@@ -1,0 +1,2175 @@
+<div *ngIf="(Screen==1)" class="flex flex-col flex-auto min-w-0">
+
+    <!-- <p-autoComplete [showEmptyMessage]="true" [suggestions]="filteredAppointments" (completeMethod)="filterAppointemnts($event)" field="mobile" [minLength]="1"></p-autoComplete> -->
+
+
+    <mat-tab-group>
+
+        <mat-tab label="Today">
+          
+            <div class="grid grid-cols-1 sm:grid-cols-8 md:grid-cols-8 gap-6 w-full min-w-0 ng-star-inserted">
+
+              
+                    <!-- <mat-form-field  class="col-lg-2" appearance="outline" *ngFor="let filter of filterSelectObj" style="margin-left: 15px;">
+                      <mat-label>Filter {{filter.name}}</mat-label>
+                      <select matNativeControl name="{{filter.columnProp}}" [(ngModel)]="filter.modelValue"
+                        (change)="filterChange(filter,$event)">
+                        
+                        <option value="">-- Select {{filter.name}} --</option>
+                        <option [value]="item" *ngFor="let item of filter.options">{{item}}</option>
+                      </select>
+                    </mat-form-field> -->
+
+                    <mat-form-field class="col-span-2 flex flex-col" appearance="outline" *ngFor="let filter of filterSelectObj"
+                        style="padding-left:0;">
+                        <mat-label>Filter {{filter.name}}</mat-label>
+
+                        <mat-select matNativeControl [(ngModel)]="filter.modelValue" name="{{filter.columnProp}}"
+                            (selectionChange)="filterChange(filter,$event)">
+                            <mat-option [value]="">-- Select {{filter.name}} --</mat-option>
+
+                            <mat-option [value]="item" *ngFor="let item of filter.options">{{item}}</mat-option>
+
+
+                            </mat-select>
+                    </mat-form-field>
+                    <div class="col-span-2 items-center flex flex-col" style="
+                    position: relative;
+                    lp: '24%';
+                    left: -20%;
+                    top: 30%;
+                "> <button mat-flat-button  color="warn" (click)="resetFilters()">Reset</button></div>
+                   
+                    
+                        <button class="fuse-mat-button-rounded col-span-2 flex flex-col justify-end" *ngIf="roleID == 1 || roleID == 3" mat-flat-button [color]="'primary'"
+                         style="position: relative;top: 24%;right: 30%;"
+                            (click)="appointmentDrawer.toggle();actionFormName('New Appointment')">
+                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
+                            <span class="ml-2">New Appointment</span>
+                        </button>
+                   
+                
+
+           
+            </div>
+            <table mat-table [dataSource]="todayBookings" matSort (matSortChange)="sortData($event)">
+                <ng-container matColumnDef="SL">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="patientARCID">
+                        <div class="row">
+                            <div class="col-lg-12">ID</div>
+                        </div>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.patientARCID }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="Patient">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Patient Details
+
+                    </th>
+
+                    <td mat-cell *matCellDef="let element">
+                        <span><b>{{ element.patient | titlecase}}</b></span>
+                        ({{ element.gender | slice:0:1}}, {{ element.age }}y)
+                        <br />
+                        <!-- <mat-icon style="font-size: 20px ;"> call</mat-icon> -->
+                        {{ element.mobile }}
+                     
+                    </td>
+                </ng-container>
+              
+
+                
+
+                <ng-container matColumnDef="Service">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <div class="row">
+                            <div class="col-lg-12">Service Name</div>
+
+                        </div>
+                    </th>
+
+                    <td mat-cell *matCellDef="let element">
+                        <span>{{ element.serviceName }}</span>
+                    </td>
+                </ng-container>
+
+                <ng-container matColumnDef="Doctor">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <div class="row">
+                            <div class="col-lg-12">Doctor</div>
+
+                        </div>
+                    </th>
+
+                    <td mat-cell *matCellDef="let element">
+                        <span>{{ element.doctor }}</span>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="Time">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <div class="row">
+                            <div class="col-lg-12">Time</div>
+
+                        </div>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+
+                        <span>{{ element.slotTime }}</span>
+                    </td>
+                </ng-container>
+
+
+                <ng-container matColumnDef="WaitingTime">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <div class="row">
+                            <div class="col-lg-12">WaitingTime</div>
+
+                        </div>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <span *ngIf="element.waitingTime !=0">
+                            <b> {{ element.waitingTime }} m </b>
+                        </span>
+                        <span *ngIf="element.waitingTime ==0">
+                            -
+                        </span>
+
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="Status">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header="status">
+                        <div class="row">
+                            <div class="col-lg-12">Status</div>
+
+                        </div>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <span *ngIf="element.status =='Booked'" style="color: #4f46e5;">
+                            <b> {{ element.status }}</b>
+                        </span>
+                        <span *ngIf="element.status =='Completed'" style="color: green">
+                            <b> {{ element.status }}</b>
+                        </span>
+                        <span *ngIf="element.status =='Arrived'" style="color: #ff4081">
+                            <b> {{ element.status }}</b>
+                        </span>
+
+
+
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="VisitCount">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <div class="row">
+                            <div class="col-lg-12">VisitCount#</div>
+
+                        </div>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <span>
+                            {{ element.visitCount }}
+                        </span>
+
+
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="ReceiptToken">
+                    <th mat-header-cell *matHeaderCellDef>
+                        <div class="row">
+                            <div class="col-lg-12">Token</div>
+
+                        </div>
+                    </th>
+                    <td mat-cell *matCellDef="let element">
+                        <span>
+                            {{ element.receiptToken }}
+                        </span>
+
+
+                    </td>
+                </ng-container>
+
+               
+                <ng-container matColumnDef="Billing">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Billing
+                    </th>
+
+                    <td mat-cell *matCellDef="let element">
+                        {{ element.payment }}
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="DuePayment">
+                    <th mat-header-cell *matHeaderCellDef>
+                        DuePayment
+                    </th>
+
+                    <td mat-cell *matCellDef="let element" style="cursor: pointer;">
+
+                        <div *ngIf="(element.modeofPaymentID != 5) && (element.duePayment == null || element.duePayment == '0.00')">
+                          
+                        <div style="color: green;">Paid</div>
+                    </div>
+                        <span *ngIf="(roleID=='1' ||roleID=='3')  && element.modeofPaymentID == 5 && element.duePayment == '0.00'"
+                            style="color: #ff4081;" (click)="appointmentDrawer.toggle();updateSelect(element)">
+                            <mat-icon style="color: #ff4081;">payment</mat-icon>
+                            Pay
+                        </span>
+                        <span *ngIf="(roleID=='5')  && element.modeofPaymentID == 5 && element.duePayment == '0.00'"
+                            style="color: #ff4081;">
+                            <mat-icon style="color: #ff4081;">payment</mat-icon>
+                            Pay
+                        </span>
+                        <span *ngIf="(roleID=='2')  && element.modeofPaymentID == 5 && element.duePayment == '0.00'"
+                        style="color: #ff4081;">
+                        <mat-icon style="color: #ff4081;">payment</mat-icon>                            
+                    </span>
+
+                        <span *ngIf="element.duePayment != null && element.duePayment != '0.00'"
+                            style="color: #ff4081;"
+                            (click)="appointmentDrawer.toggle();updateSelectDuePay(element)">
+                            <mat-icon style="color: #ff4081;">payment</mat-icon>
+                            <span> {{ element.duePayment }}</span>
+
+                        </span>
+
+                    </td>
+                </ng-container>
+
+
+
+                <!-- *ngIf="roleID=='2'; else templateA" -->
+                <ng-container matColumnDef="Actions">
+                    <th mat-header-cell *matHeaderCellDef>
+                        Actions
+                    </th>
+
+                    <td mat-cell *matCellDef="let element">
+                        <button mat-icon-button [matMenuTriggerFor]="menu"
+                            aria-label="Example icon-button with a menu">
+                            <mat-icon>more_vert</mat-icon>
+                        </button>
+                        <mat-menu #menu="matMenu">
+                            <!-- <button mat-menu-item (click)="viewHistory(element)">
+                                <mat-icon svgIcon="heroicons_solid:pencil-alt"></mat-icon>
+                                <span>View</span>
+                            </button> -->
+                            <button mat-menu-item (click)="appointmentDrawer.toggle();updateSelect(element)">
+                                <mat-icon svgIcon="heroicons_solid:pencil-alt"></mat-icon>
+                                <span>Edit</span>
+                            </button>
+
+                            <button mat-menu-item (click)="deleteAppointment(element)">
+                                <mat-icon svgIcon="heroicons_solid:trash"></mat-icon>
+                                <span>Delete</span>
+                            </button>
+                        </mat-menu>
+                    </td>
+                </ng-container>
+                <!-- <ng-template #templateA>
+                    …
+                  </ng-template> -->
+
+                <ng-container matColumnDef="Vitals">
+                    <th mat-header-cell *matHeaderCellDef>
+
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+                        <button mat-button *ngIf="roleID=='5' && row.vitalsID"
+                            (click)="vitalsDrawer.toggle();$event.stopPropagation()">
+                            <div *ngIf="row.vitalsID" style="color: green" (click)="setValues(row)">Update Vitals
+                            </div>
+                        </button>
+
+                        <button mat-button
+                            *ngIf="roleID=='5' && (row.modeofPaymentID != 5) && (row.duePayment == null || row.duePayment == '0.00') && !row.vitalsID"
+                            (click)="vitalsDrawer.toggle();$event.stopPropagation()">
+
+                            <div style="color: #ff4081"
+                                *ngIf="(row.modeofPaymentID != 5) && (row.duePayment == null || row.duePayment == '0.00') && !row.vitalsID"
+                                (click)="rowData(row)">
+                                Add Vitals
+                            </div>
+                            <!-- <div *ngIf="!row.vitalsID" style="color: #ff4081" (click)="rowData(row)"> Add Vitals
+                        </div> -->
+                        </button>
+                        <button mat-button
+                            *ngIf="roleID=='2' && (row.modeofPaymentID != 5) && (row.duePayment == null || row.duePayment == '0.00')">
+                            <div style="color: cornflowerblue"
+                                *ngIf="row.doctorCompleted == null || row.doctorCompleted == 0"
+                                (click)="onRowClicked(row)">Start</div>
+                            <div *ngIf="row.doctorCompleted == 1" (click)="onRowClicked(row)">
+                                <mat-icon style="color: green"> check_circle</mat-icon>
+                            </div>
+                            <!-- <div style="color: cornflowerblue"
+                            *ngIf="row.doctorCompleted == 1"
+                            (click)="onRowClicked(row)">Print Prescreption</div> -->
+                        </button>
+                    </td>
+                </ng-container>
+                <ng-container matColumnDef="View">
+                    <th mat-header-cell *matHeaderCellDef>
+
+                    </th>
+                    <td mat-cell *matCellDef="let row">
+
+                        <button mat-button *ngIf="roleID=='5' || roleID=='1'">
+                            <div style="color: cornflowerblue" (click)="onRowClicked(row)">Visits</div>
+
+                        </button>
+                        <button mat-button *ngIf="roleID=='2'">
+                            <div style="color: cornflowerblue" *ngIf="row.doctorCompleted == 1"
+                                (click)="onRowPrintPresecptionClicked(row)">Print </div>
+                        </button>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+            </table>
+            <mat-paginator #Paginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5" showFirstLastButtons>
+            </mat-paginator>
+        </mat-tab>
+        <mat-tab label="Upcoming Bookings">
+            <div class="row">
+                <div class="col-lg-6">
+                    <mat-form-field class="search">
+                        <mat-icon matPrefix>perm_identity</mat-icon>
+                        <input matInput type="text" [(ngModel)]="searchKey1" (keyup)="doFilter(searchKey1,2)"
+                            placeholder="Search Profile">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6" style="text-align: right;" *ngIf="roleID == 1 || roleID == 3">
+                    <button mat-flat-button  color="warn" (click)="resetFilters()" style="position:relative;left: -220px;top: 25;">Reset</button>
+                    <button class="fuse-mat-button-rounded" mat-flat-button [color]="'primary'"
+                        (click)="appointmentDrawer.toggle();actionFormName('New Appointment')" style="left: -120px;top:7px;position: relative;">
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
+                        <span class="ml-2" >New Appointment</span>
+                    </button>
+                </div>
+            </div>
+            <div class="example-container mat-elevation-z8">
+                <table mat-table [dataSource]="upcomingBookings" matSort>
+                    <!-- Position Column -->
+
+                    <ng-container matColumnDef="SL">
+                        <th mat-header-cell *matHeaderCellDef>
+                            ID
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.appointmentID }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Patient">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Patient Details
+                        </th>
+
+                        <td mat-cell *matCellDef="let element">
+                            <span><b>{{ element.patient | titlecase}}</b></span>
+                            ({{ element.gender | slice:0:1}}, {{ element.age }}y)
+                            <br />
+                            <!--<mat-icon style="font-size: 20px ;"> call</mat-icon>-->
+                            {{ element.mobile }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Service">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Service Name
+                        </th>
+
+                        <td mat-cell *matCellDef="let element">
+                            <span>{{ element.serviceName }}</span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Doctor">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Assigned Doctor
+                        </th>
+
+                        <td mat-cell *matCellDef="let element">
+                            <span>Dr {{ element.doctor }}</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Time">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Time
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="row">
+                                <div class="col-lg-1">
+                                    <mat-icon style="font-size: 20px ;margin-top: 9px;">watch_later</mat-icon>
+                                </div>
+                                <div class="col-lg-8">
+                                    {{ element.serviceDate | date }}
+                                    <div>
+                                        {{
+                                        element.slotTime
+                                        }}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Reason">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Status
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <span
+                                [ngClass]="{'message': element.statusName=='Booked','noShow': element.statusName =='No Show','warn': element.statusName !='Booked'}">
+                                {{ element.statusName }}
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="WaitingTime">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <div class="row">
+                                <div class="col-lg-12">WaitingTime</div>
+
+                            </div>
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <!-- <span
+                                [ngClass]="{'message': element.statusName=='Booked','noShow': element.statusName =='No Show','warn': element.statusName !='Booked'}">
+                                {{ element.statusName }}
+                            </span> -->
+                            <span>-</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="VisitCount">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <div class="row">
+                                <div class="col-lg-12">VisitCount</div>
+
+                            </div>
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <span>
+                                {{ element.visitCount }}
+                            </span>
+
+
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Billing">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Billing
+                        </th>
+
+                        <td mat-cell *matCellDef="let element" (click)="test(row)">
+                            {{ element.payment }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="DuePayment">
+                        <th mat-header-cell *matHeaderCellDef>
+                            DuePayment
+                        </th>
+
+                        <td mat-cell *matCellDef="let element" (click)="test(row)">
+                            {{ element.duePayment }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Actions" *ngIf="roleID!='2'">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Actions
+                        </th>
+
+                        <td mat-cell *matCellDef="let element">
+                            <button mat-icon-button [matMenuTriggerFor]="menu"
+                                aria-label="Example icon-button with a menu">
+                                <mat-icon>more_vert</mat-icon>
+                            </button>
+                            <mat-menu #menu="matMenu">
+                                <!--<button mat-menu-item (click)="viewHistory(element)">
+                                    <mat-icon svgIcon="heroicons_solid:pencil-alt"></mat-icon>
+                                    <span>View</span>
+                                </button>-->
+                                <button mat-menu-item (click)="
+                                updateSelect(element);
+                                appointmentDrawer.toggle()
+                            ">
+                                    <mat-icon svgIcon="heroicons_solid:pencil-alt"></mat-icon>
+                                    <span>Edit</span>
+                                </button>
+
+                                <button mat-menu-item (click)="deleteAppointment(element)">
+                                    <mat-icon svgIcon="heroicons_solid:trash"></mat-icon>
+                                    <span>Delete</span>
+                                </button>
+                            </mat-menu>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Vitals" *ngIf="roleID!='3'">
+                        <th mat-header-cell *matHeaderCellDef>
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            <button mat-button style="color: #ff4081"
+                                (click)="vitalsDrawer.toggle();$event.stopPropagation()">
+                                <div *ngIf="row.vitalsID" (click)="setValues(row)">Update Vitals</div>
+                                <div *ngIf="!row.vitalsID" (click)="rowData(row)"> Add Vitals</div>
+                            </button>
+                        </td>
+                    </ng-container>
+
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsUpcoming; sticky: true"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsUpcoming"></tr>
+                </table>
+                <mat-paginator #upcomingPaginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="5"
+                    showFirstLastButtons>
+                </mat-paginator>
+            </div>
+        </mat-tab>
+        <mat-tab label="History">
+            <div class="row">
+                <div class="col-lg-6">
+                    <mat-form-field class="search">
+                        <mat-icon matPrefix>perm_identity</mat-icon>
+                        <input matInput type="text" [(ngModel)]="searchKey2" (keyup)="doFilter(searchKey2,3)"
+                            placeholder="Search Profile">
+                    </mat-form-field>
+                </div>
+                <div class="col-lg-6" style="text-align: right;" *ngIf="roleID == 1 || roleID == 3">
+                    <button mat-flat-button  color="warn" (click)="resetFilters()" style="position:relative;left: -220px;top: 25;">Reset</button>
+                    <button class="fuse-mat-button-rounded" mat-flat-button [color]="'primary'"
+                        (click)="appointmentDrawer.toggle();actionFormName('New Appointment')" style="position: relative;top:5px;left:-120px;">
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
+                        <span class="ml-2">New Appointment</span>
+                    </button>
+                </div>
+            </div>
+            <div class="example-container mat-elevation-z8">
+                <table mat-table [dataSource]="patientsappointments" matSort>
+                    <!-- Position Column -->
+
+                    <ng-container matColumnDef="SL">
+                        <th mat-header-cell *matHeaderCellDef>
+                            ID
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            {{ element.appointmentID }}
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Patient">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Patient Details
+                        </th>
+
+                        <td mat-cell *matCellDef="let element">
+                            <span><b>{{ element.patient | titlecase}}</b></span>
+                            ({{ element.gender | slice:0:1}}, {{ element.age }}y)
+                            <br />
+                            <!--<mat-icon style="font-size: 20px ;"> call</mat-icon>-->
+                            {{ element.mobile }}
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Service">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Service Name
+                        </th>
+
+                        <td mat-cell *matCellDef="let element">
+                            <span>{{ element.serviceName }}</span>
+                        </td>
+                    </ng-container>
+
+                    <ng-container matColumnDef="Doctor">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Assigned Doctor
+                        </th>
+
+                        <td mat-cell *matCellDef="let element">
+                            <span>Dr {{ element.doctor }}</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Time">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Time
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <div class="row">
+                                <div class="col-lg-1">
+                                    <mat-icon style="font-size: 20px ;margin-top: 9px;">watch_later</mat-icon>
+                                </div>
+                                <div class="col-lg-8">
+                                    <b> {{ element.serviceDate | date }}</b>
+                                    <div>
+                                        {{
+                                        element.slotTime
+                                        }}
+                                    </div>
+                                </div>
+                            </div>
+
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="WaitingTime">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <div class="row">
+                                <div class="col-lg-12">WaitingTime</div>
+
+                            </div>
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <span>
+                                {{ element.waitingTime }}
+                            </span>
+                            <span>-</span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="VisitCount">
+                        <th mat-header-cell *matHeaderCellDef>
+                            <div class="row">
+                                <div class="col-lg-12">VisitCount</div>
+
+                            </div>
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <span style="text-align: center;">
+                                {{ element.visitCount }}
+                            </span>
+
+
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="Reason">
+                        <th mat-header-cell *matHeaderCellDef>
+                            Status
+                        </th>
+                        <td mat-cell *matCellDef="let element">
+                            <span
+                                [ngClass]="{'message': element.statusName=='Booked','noShow': element.statusName =='No Show','warn': element.statusName !='Booked'}">
+                                {{ element.statusName }}
+                            </span>
+                        </td>
+                    </ng-container>
+                    <ng-container matColumnDef="View">
+                        <th mat-header-cell *matHeaderCellDef>
+
+                        </th>
+                        <td mat-cell *matCellDef="let row">
+                            <button mat-button>
+                                <div style="color: cornflowerblue" (click)="onRowClicked(row)">View</div>
+                            </button>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumnsHistory; sticky: true"></tr>
+                    <!--<tr mat-row
+                    *matRowDef="let row; columns: displayedColumns"></tr>-->
+                    <tr mat-row *matRowDef="let row; columns: displayedColumnsHistory;"></tr>
+                </table>
+                <mat-paginator #HistoryPaginator [pageSizeOptions]="[5, 10, 25, 100]" [pageSize]="10"
+                    showFirstLastButtons>
+                </mat-paginator>
+            </div>
+        </mat-tab>
+
+
+    </mat-tab-group>
+
+</div>
+
+
+
+
+
+
+
+
+
+<fuse-drawer class="w-screen min-w-screen sm:w-100 sm:min-w-200 z-999" fixed [mode]="'over'"
+    [name]="'appointmentDrawer'" [position]="'right'" #appointmentDrawer>
+    <div class="flex flex-col w-full overflow-auto bg-card">
+        <div class="  flex flex-row items-center px-6 h-20 min-h-20  text-white  bg-primary">
+            <mat-icon class="icon-size-7 text-current" [svgIcon]="'heroicons_solid:plus'"></mat-icon>
+            <div class="ml-3 text-2xl font-semibold tracking-tight">{{actionName}}</div>
+            <button class="ml-auto" mat-icon-button (click)="onAppointmentClear();appointmentDrawer.close()">
+                <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+            </button>
+        </div>
+        <div class="flex flex-col p-6">
+            <div class="flex flex-col gt-xs:flex-row">
+                <!-- Horizontal stepper -->
+
+                <form class="p-4 bg-card rounded overflow-hidden" [formGroup]="horizontalStepperForm">
+                    <mat-horizontal-stepper [linear]="false" #horizontalStepper>
+                        <mat-step [formGroupName]="'step1'" [stepControl]="horizontalStepperForm.get('step1')"
+                            #horizontalStepperStep1>
+                            <ng-template matStepLabel>Appointment Details</ng-template>
+                            <div class="row">
+                                <mat-form-field floatLabel="never" class="col-lg-12"
+                                    *ngIf="actionName=='New Appointment'">
+
+                                    <input type="text" [(ngModel)]="searchKey3" placeholder="Search Patient Profile"
+                                        aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+                                    <mat-icon matPrefix>perm_identity</mat-icon>
+                                    <button mat-button matSuffix mat-icon-button aria-label="clear" *ngIf="searchKey3"
+                                        (click)="onSearchClear()">
+                                        <mat-icon>close</mat-icon>
+                                    </button>
+                                    <mat-autocomplete #auto="matAutocomplete" [displayWith]="displayFn"
+                                        (optionSelected)='applyFilter($event.option)'>
+                                        <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                                            <mat-icon>account_circle</mat-icon> {{option.mobile}} ( {{option.patient}} )
+                                        </mat-option>
+                                    </mat-autocomplete>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="row" style="padding-top: 15px;">
+                                <mat-form-field class="col-lg-4" appearance="outline">
+                                    <mat-label>Select Date</mat-label>
+                                    <input matInput [matDatepicker]="picker" [formControlName]="'appDate'"
+                                        [readonly]="isDuePay" required />
+                                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                    <mat-datepicker #picker></mat-datepicker>
+                                </mat-form-field>
+                                <mat-form-field class="col-lg-4" appearance="outline">
+                                    <mat-label>Select Doctor</mat-label>
+                                    <mat-select [formControlName]="'docName'"
+                                        (selectionChange)="getSlotsWithDocID($event.value)" required
+                                        [disabled]="isDuePay">
+                                        <mat-option *ngFor="let doc of doctors" [value]="doc.doctorID">
+                                            {{ doc.doctor }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field class="col-lg-4" appearance="outline">
+                                    <mat-label>Select Time</mat-label>
+                                    <mat-select [formControlName]="'slot'" required [disabled]="isDuePay"
+                                        (selectionChange)="getTimeChange($event.value)">
+                                        <mat-option *ngFor="let item of slotsArr" [value]="item">
+                                            {{ item.slot }}
+                                        </mat-option>
+                                    </mat-select>
+
+                                </mat-form-field>
+
+                            </div>
+                            <div class="row">
+                                <mat-form-field class="col-lg-4" appearance="outline">
+                                    <mat-label>Full Name</mat-label>
+                                    <input matInput [formControlName]="'firstName'" required [readonly]="isDuePay" />
+                                </mat-form-field>
+
+                                <!-- <mat-form-field class="col-lg-4" appearance="outline">
+                                    <mat-label>Last Name</mat-label>
+                                    <input matInput [formControlName]="'lastName'" [readonly]="isDuePay" />
+                                </mat-form-field> -->
+                                <mat-form-field class="col-lg-4" appearance="outline">
+                                    <mat-label>Mobile Number </mat-label>
+                                    <!-- (keyup)="searchPatient($event.target.value)" -->
+                                    <input matInput [formControlName]="'mobNum'" required [readonly]="isDuePay"   />
+                                    
+                                 
+                                </mat-form-field>
+                                <mat-form-field class="col-lg-4" appearance="outline">
+                                    <mat-label>Age</mat-label>
+                                    <input matInput [formControlName]="'age'" required [readonly]="isDuePay" />
+                                </mat-form-field>
+                            </div>
+                            <div class="row">
+                                <mat-radio-group class="col-lg-4" [color]="'primary'" [formControlName]="'gender'"
+                                    required [disabled]="isDuePay">
+                                    <mat-radio-button *ngFor="let item of genders" style="font-size: 11px"
+                                        [value]="item.genderID">
+                                        <span>
+                                            {{item.gender}}
+                                        </span>
+                                    </mat-radio-button>
+                                </mat-radio-group>
+
+                               
+                                <!-- <mat-form-field class="col-lg-4" appearance="outline">
+                                    <mat-label>Select Status</mat-label>
+                                    <mat-select [formControlName]="'status'" required [disabled]="isDuePay">
+                                        <mat-option *ngFor="let item of status" [value]="item.statusID">
+                                            {{ item.statusName }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field> -->
+                            </div>
+
+                            <div class="flex justify-end" *ngIf="action != 'Update Existing Appointment'">
+                                <button class="px-8" mat-flat-button [color]="'primary'" [disabled]="isNoSlot ||
+                                        (horizontalStepperStep1.stepControl
+                                            .pristine ||
+                                        horizontalStepperStep1.stepControl
+                                            .invalid)
+                                    " type="button" matStepperNext>
+                                    Next
+                                </button>
+                            </div>
+                            <div class="flex justify-end" *ngIf="action == 'Update Existing Appointment'">
+                                <button class="px-8" mat-flat-button [color]="'primary'" [disabled]="nextDisabled                                         
+                                    " type="button" matStepperNext>
+                                    Next
+                                </button>
+                            </div>
+                        </mat-step>
+
+
+
+                        <mat-step [formGroupName]="'step2'" [stepControl]="horizontalStepperForm.get('step2')"
+                            #horizontalStepperStep2>
+                            <ng-template matStepLabel>Payment</ng-template>
+
+                            <div class="row">
+                                <mat-form-field class="col-lg-12" appearance="outline">
+                                    <mat-label>Select Service</mat-label>
+                                    <mat-select [formControlName]="'serviceName'" required [disabled]="isDuePay">
+                                        <mat-option *ngFor="let item of services" [value]="item.serviceID">
+                                            {{ item.serviceName }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+                            <div class="row" *ngIf="!isDuePay">
+
+                               <!---- <mat-checkbox (change)="onCheckboxChange($event)" color="accent"
+                                    [formControlName]="'skipPayment'" [checked]="isChecked" class="ml-4">Skip Billing
+                                </mat-checkbox>-->
+
+                            </div>
+                            <div class="row" *ngIf="isPriceTag">
+                                <mat-form-field class="col-lg-3" appearance="outline">
+                                    <mat-label>Price</mat-label>
+                                    <mat-select [formControlName]="'price'" (selectionChange)="applyNetPrice($event)"
+                                        required [disabled]="isDuePay">
+                                        <mat-option *ngFor="let item of prices " [value]="item.priceID">
+                                            {{ item.price }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field class="col-lg-3" appearance="outline">
+                                    <mat-label>Mode Of Payment</mat-label>
+                                    <mat-select [formControlName]="'modeOfPayment'" required>
+                                        <mat-option *ngFor="let item of Mode " [value]="item.ID">
+                                            {{ item.label }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                                <mat-form-field class="col-lg-3" appearance="outline" *ngIf="roleID==1">
+                                    <mat-label>Discount in %</mat-label>
+                                    <mat-select [formControlName]="'discount'" (selectionChange)="applyNetPrice($event)"
+                                        [disabled]="isDuePay">
+                                        <mat-option *ngFor="let item of discounts" [value]="item.discountID">
+                                            {{ item.discount }}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+
+                                <mat-form-field class="col-lg-3" appearance="outline" *ngIf="roleID==1">
+                                    <mat-label>Amount Paid</mat-label>
+                                    <input matInput [formControlName]="'amountPaid'" required [readonly]="isDuePay" />
+                                </mat-form-field>
+                            </div>
+
+                            <div class="row" *ngIf="isPriceTag &&roleID==1">
+                                <mat-form-field class="col-lg-4" appearance="outline">
+                                    <mat-label>Net Price</mat-label>
+                                    <input matInput [formControlName]="'netPrice'" [readonly]="true" />
+                                </mat-form-field>
+
+                            </div>
+                            <div class="row" *ngIf="isDuePay&&roleID==1">
+                                <mat-form-field class="col-lg-4" appearance="outline">
+                                    <mat-label>Amount to Pay</mat-label>
+                                    <input matInput [formControlName]="'duePayment'" />
+                                </mat-form-field>
+
+                            </div>
+
+                            <div class="flex justify-end" *ngIf="isPriceTag">
+                                <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button"
+                                    matStepperPrevious>
+                                    Back
+                                </button>
+                                <button class="px-8" mat-flat-button [color]="'primary'"
+                                    (click)="addRegisterPatientAppointment(horizontalStepperForm.value);appointmentDrawer.close();ConfirmDialog.toggle()"
+                                    [disabled]="
+
+                                        horizontalStepperStep2.stepControl
+                                            .invalid
+                                    " type="button" matStepperNext>
+                                    <!-- Submit -->{{appointmentButton}}
+                                </button>
+                            </div>
+                            <div class="flex justify-end" *ngIf="!isPriceTag">
+                                <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button"
+                                    matStepperPrevious>
+                                    Back
+                                </button>
+                                <button class="px-8" mat-flat-button [color]="'primary'"
+                                    (click)="addRegisterPatientAppointment(horizontalStepperForm.value);appointmentDrawer.close();ConfirmDialog.toggle()"
+                                    type="button" matStepperNext>
+                                    {{appointmentButton}}
+                                </button>
+                            </div>
+                        </mat-step>
+                    </mat-horizontal-stepper>
+                </form>
+            </div>
+        </div>
+    </div>
+</fuse-drawer>
+
+
+<!--==========================Vitals======================================-->
+
+
+<fuse-drawer class="w-screen min-w-screen sm:w-100 sm:min-w-200 z-999" fixed [mode]="'over'" [name]="'vitalsDrawer'"
+    [position]="'right'" #vitalsDrawer>
+    <div class="flex flex-col w-full overflow-auto bg-card">
+        <div class="  flex flex-row items-center  h-10 min-h-10  text-white  bg-color">
+            <!-- <mat-icon class="icon-size-7 text-current" [svgIcon]="'heroicons_solid:plus'"></mat-icon> -->
+            <div class="ml-3 text-2xl font-semibold tracking-tight track_font">
+                <!-- Add Vitals : Srikanth Godugu (M, Age.28)-->
+                Add Vitals : {{patientName}}
+            </div>
+            <button class="ml-auto" mat-icon-button (click)="vitalsDrawer.close()">
+                <mat-icon class="text-current" [svgIcon]="'heroicons_outline:x'"></mat-icon>
+            </button>
+        </div>
+
+
+        <div class="flex flex-col p-6">
+            <div class="flex flex-col gt-xs:flex-row">
+                <div class="tabbable-panel">
+                    <div class="tabbable-line">
+                        <ul class="nav nav-tabs ">
+                            <li class="active">
+                                <a href="#tab_default_1" data-toggle="tab">
+                                    Vitals
+                                </a>
+                            </li>
+                            <li>
+                                <a href="http//google.co.in" target="_blank" data-toggle="tab">
+                                    Lab Report
+                                </a>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content mb-5">
+                            <div class="tab-pane active" id="tab_default_1">
+                                <div class="panel-group" id="accordionGroupClosed" role="tablist"
+                                    aria-multiselectable="true">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingOne">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse"
+                                                    data-parent="#accordionGroupClosed" href="#collapseCloseOne"
+                                                    aria-expanded="false" aria-controls="collapseCloseOne">
+                                                    Add Vitals
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseCloseOne" class="panel-collapse collapse" role="tabpanel"
+                                            aria-labelledby="headingOne">
+                                            <div class="panel-body">
+                                                <fieldset class="scheduler-border" [formGroup]="vitalsForm">
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 text_box">
+                                                            <mat-form-field appearance="outline">
+                                                                <mat-label>Weight in KG</mat-label>
+                                                                <input matInput [formControlName]="'weight'" />
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 text_box">
+                                                            <!-- <mat-form-field appearance="outline" >
+                                                                <mat-label>Blood Group</mat-label>
+                                                                <input matInput [formControlName]="'bloodGroup'" />
+                                                            </mat-form-field> -->
+                                                            <mat-form-field class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                                            appearance="outline">
+                                                            <mat-label>Blood Group</mat-label>
+                                                            <mat-select [formControlName]="'bloodGroup'">
+                                                                <mat-option *ngFor="let item of BloodGroup"
+                                                                    [value]="item.ID">
+                                                                    {{ item.ID }}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                            <mat-form-field appearance="outline">
+                                                                <mat-label>Temperature in F</mat-label>
+                                                                <input matInput [formControlName]="'temp'" />
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                            <mat-form-field appearance="outline">
+                                                                <mat-label>Serum Creatinine</mat-label>
+                                                                <input matInput [formControlName]="'serumCreatinine'" />
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                            <mat-form-field appearance="outline">
+                                                                <mat-label>Blood Pressure</mat-label>
+                                                                <input matInput [formControlName]="'bloodPressure'" />
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                            <mat-form-field appearance="outline">
+                                                                <mat-label>Pulse</mat-label>
+                                                                <input matInput [formControlName]="'pulse'" />
+                                                            </mat-form-field>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                            <mat-form-field appearance="outline">
+                                                                <mat-label>SpO2 %</mat-label>
+                                                                <input matInput [formControlName]="'SpO2'" />
+                                                            </mat-form-field>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                            <mat-form-field appearance="outline">
+                                                                <mat-label>BMI</mat-label>
+                                                                <input matInput [formControlName]="'BMI'" />
+                                                            </mat-form-field>
+                                                        </div>
+
+                                                    </div>
+                                                </fieldset>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingTwo">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse"
+                                                    data-parent="#accordionGroupClosed" href="#collapseCloseTwo"
+                                                    aria-expanded="false" aria-controls="collapseTwo">
+                                                    Observation
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseCloseTwo" class="panel-collapse collapse" role="tabpanel"
+                                            aria-labelledby="headingTwo">
+                                            <div class="panel-body">
+                                                <fieldset class="scheduler-border" [formGroup]="vitalsForm">
+                                                    <div class="row">
+                                                        <mat-form-field class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                                            appearance="outline">
+                                                            <mat-label>Select Visit Reason</mat-label>
+                                                            <mat-select [formControlName]="'visitReason'">
+                                                                <mat-option *ngFor="let item of visitReason"
+                                                                    [value]="item.visitReasonID">
+                                                                    {{ item.reason }}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+
+                                                    </div>
+                                                    <div class="row">
+                                                        <mat-form-field
+                                                            class="example-chip-list col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                                            appearance="fill">
+                                                            <mat-label>
+                                                                Complaints (Type and select or press enter to
+                                                                add...)
+                                                            </mat-label>
+                                                            <mat-chip-list #chipList aria-label="Fruit selection">
+                                                                <mat-chip *ngFor="let fruit of fruits"
+                                                                    [selectable]="selectable" [removable]="removable"
+                                                                    (removed)="remove(fruit)">
+                                                                    {{fruit}}
+                                                                    <button matChipRemove *ngIf="removable">
+                                                                        <mat-icon>cancel</mat-icon>
+                                                                    </button>
+                                                                </mat-chip>
+                                                                <input #fruitInput [formControl]="fruitCtrl"
+                                                                    [matAutocomplete]="auto"
+                                                                    [matChipInputFor]="chipList"
+                                                                    [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                                    (matChipInputTokenEnd)="add($event)">
+                                                            </mat-chip-list>
+                                                            <mat-autocomplete #auto="matAutocomplete"
+                                                                (optionSelected)="selected($event)">
+                                                                <mat-option *ngFor="let fruit of filteredFruits | async"
+                                                                    [value]="fruit.complaintName">
+                                                                    {{fruit.complaintName}}
+                                                                </mat-option>
+                                                            </mat-autocomplete>
+                                                        </mat-form-field>
+
+                                                    </div>
+
+
+
+
+
+
+
+                                                </fieldset>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab" id="headingThree">
+                                            <h4 class="panel-title">
+                                                <a class="collapsed" role="button" data-toggle="collapse"
+                                                    data-parent="#accordionGroupClosed" href="#collapseCloseThree"
+                                                    aria-expanded="false" aria-controls="collapseThree">
+                                                    Attachemets
+                                                </a>
+                                            </h4>
+                                        </div>
+                                        <div id="collapseCloseThree" class="panel-collapse collapse" role="tabpanel"
+                                            aria-labelledby="headingThree">
+                                            <div class="panel-body">
+                                                <fieldset class="scheduler-border" [formGroup]="vitalsForm">
+                                                    <div class="row">
+                                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                            <label for="colFormLabelSm0"
+                                                                class="col-form-label ">Document Name</label>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                            <label for="colFormLabelSm1" class="col-form-label ">
+                                                                Upload File
+                                                            </label>
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                            <p style="text-align: right; margin-top: -8px;">
+                                                                <button type="button"
+                                                                    class="btn btn-primary btn-sm mr-1"
+                                                                    (click)="addItem()">
+                                                                    + Add
+                                                                </button>
+
+                                                            </p>
+                                                        </div>
+
+                                                        <!--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+
+                                                                <p style="text-align:right">
+                                                                    <button type="button" class="btn btn-primary btn-sm mr-1"
+                                                                            (click)="addItem()">
+                                                                        + Add
+                                                                    </button>
+                                                                </p>
+                                                            </div>-->
+                                                    </div>
+                                                    <!--<div class="row">
+                                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                                <label for="colFormLabelSm0"
+                                                                       class="col-form-label ">Document Name</label>
+                                                            </div>
+                                                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12">
+                                                                <label for="colFormLabelSm1" class="col-form-label ">
+                                                                    Upload File
+                                                                </label>
+                                                            </div>
+                                                        </div>-->
+                                                    <!--<div formArrayName="items"
+                                                             *ngFor="let item of vitalsForm.get('items')['controls']; let i = index;">
+                                                            <ng-container [formGroupName]="i">
+                                                                <div class="row">
+                                                                    <mat-form-field class="col-lg-4 col-md-4 col-sm-12 col-xs-12"
+                                                                                    appearance="outline">
+                                                                        <mat-select [formControlName]="'docType'" required>
+                                                                            <mat-option *ngFor="let item of docs"
+                                                                                        [value]="item">
+                                                                                {{ item.docTypeNAme }}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+
+
+                                                                    <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12">
+                                                                        <div class="file-upload">
+                                                                            <div class="file-select">
+
+                                                                                <input [formControlName]="'Image'"
+                                                                                       (change)="detectFiles($event)"
+                                                                                       type="file" name="chooseFile"
+                                                                                       id="chooseFile">
+                                                                            </div>
+                                                                        </div>
+                                                                        <small *ngIf="employees.controls[i].get('Image').touched && employees.controls[i].get('Image').errors?.required"
+                                                                               class="p-error">Document is required.</small>
+                                                                    </div>
+
+
+                                                                    <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+
+                                                                        <button type="button">
+                                                                            <mat-icon svgIcon="heroicons_solid:trash"
+                                                                                      (click)="DeleteItem(i)"></mat-icon>
+                                                                        </button>
+                                                                    </div>
+
+
+                                                                </div>
+                                                                <br />
+                                                            </ng-container>
+                                                        </div>-->
+
+
+
+                                                    <div formArrayName="items"
+                                                        *ngFor="let item of vitalsForm.get('items')['controls']; let i = index;">
+                                                        <ng-container [formGroupName]="i">
+                                                            <div class="row">
+                                                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                                    <mat-form-field appearance="outline">
+                                                                        <mat-select [formControlName]="'docType'">
+                                                                            <mat-option *ngFor="let item of docs"
+                                                                                [value]="item">
+                                                                                {{ item.docTypeNAme }}
+                                                                            </mat-option>
+                                                                        </mat-select>
+                                                                    </mat-form-field>
+                                                                </div>
+
+
+                                                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                                    <div class="header-icon" (click)="file.click()"
+                                                                        style=" margin-left: -19px; width: 100%; ">
+                                                                        <button type="button" class="btn btn-primary"
+                                                                            style="width: 100%; height: 57px !important; border-radius:5px;">
+
+                                                                            <span style="font-size:20px;">📎</span> File
+                                                                            Upload {{ i + 1 }}
+                                                                        </button>
+                                                                    </div>
+                                                                    <span style="display:none">
+                                                                        <input type="file" #file
+                                                                            (change)="detectFiles($event,item)"
+                                                                            class="form-control"
+                                                                            formControlName="Image">
+                                                                    </span>
+                                                                    <!-- <small
+                                                                        *ngIf="employees.controls[i].get('Image').touched && employees.controls[i].get('Image').errors?.required"
+                                                                        class="p-error">Document is required.</small> -->
+                                                                </div>
+
+
+                                                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                                                    <div>
+                                                                        <input autocomplete="off"
+                                                                            class="form-control py-2 border-right-0 border"
+                                                                            formControlName="fileName" readonly
+                                                                            style="height: 57px !important;">
+                                                                    </div>
+                                                                </div>
+
+
+
+
+                                                                <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"
+                                                                    style="padding-top: 16px; ">
+
+                                                                    <button type="button">
+                                                                        <mat-icon svgIcon="heroicons_solid:trash"
+                                                                            (click)="DeleteItem(i)" style="color:red;">
+                                                                        </mat-icon>
+                                                                    </button>
+                                                                </div>
+
+
+                                                            </div>
+                                                            <br />
+                                                        </ng-container>
+                                                    </div>
+
+
+                                                </fieldset>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- [disabled]="vitalsForm.invalid" -->
+                                <button class="px-8" mat-flat-button [color]="'primary'" (click)="
+                                  addUpdateVitals(vitalsForm.value);vitalsDrawer.close();" type="button">
+                                    Submit
+                                </button>
+                            </div>
+                            <div class="tab-pane" id="tab_default_2">
+                                <div>Test</div>
+
+                            </div>
+
+                            <div class="flex justify-end">
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+
+            </div>
+        </div>
+    </div>
+</fuse-drawer>
+
+
+
+<div *ngIf="(Screen==2)">
+    <div class="row">
+        <div class="col-lg-12 col-sm-12 col-md-12">
+
+            <div class="col-lg-4">
+                <div class="col-lg-1">
+                </div>
+                <div class="col-lg-2" style="cursor: pointer;" (click)="appoinmentLink()">
+                    <mat-icon class="icon-size-14 text-current"> arrow_left</mat-icon>
+                </div>
+                <div class="col-lg-7">
+                    <label style="font-size: x-large;"><b>{{detailData.patient}}</b></label><br>
+                    <mat-icon class="icon-size-3 text-current"> local_phone</mat-icon> {{detailData.mobile}} <mat-icon
+                        class="icon-size-3 text-current"> contacts</mat-icon> {{detailData.gender}},{{detailData.age}}
+                    yrs
+                </div>
+                <!-- <mat-icon class="icon-size-14 text-current"> arrow_left</mat-icon> -->
+
+            </div>
+
+            <div class="col-lg-6" style="text-align: right;padding-top:15px" *ngIf="roleID=='2'">
+                <label style="font-size: large;color: darkgray;"><b>Status : </b></label><label
+                   class="login_name"><b> With Doctor</b></label>
+            </div>
+            <div class="col-lg-6" style="text-align: right;padding-top:15px" *ngIf="roleID=='5'">
+                <label style="font-size: large;color: darkgray;"><b>Status : </b></label><label
+                class="login_name"><b> With Jr.Doctor</b></label>
+            </div>
+
+            <div class="col-lg-12">
+                <mat-tab-group mat-align-tabs="center">
+
+                    <mat-tab label="Today" *ngIf="roleID=='2'">
+                        <div class="row" class="panelLabel">
+                            <mat-tab-group>
+
+                                <mat-tab label="Vitals">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab">
+                                            <label>Vitals</label>
+                                        </div>
+
+                                        <div class="panel-body">
+                                            <fieldset class="scheduler-border" [formGroup]="vitalsForm">
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Weight in KG</mat-label>
+                                                            <input matInput [formControlName]="'weight'" />
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                        <!-- <mat-form-field appearance="outline">
+                                                            <mat-label>Blood Group</mat-label>
+                                                            <input matInput [formControlName]="'bloodGroup'" />
+                                                        </mat-form-field> -->
+                                                         <mat-form-field 
+                                                            appearance="outline">
+                                                            <mat-label>Blood Group</mat-label>
+                                                            <mat-select [formControlName]="'bloodGroup'">
+                                                                <mat-option *ngFor="let item of BloodGroup"
+                                                                    [value]="item.ID">
+                                                                    {{ item.ID }}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Temperature in F</mat-label>
+                                                            <input matInput [formControlName]="'temp'" />
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Serum Creatinine</mat-label>
+                                                            <input matInput [formControlName]="'serumCreatinine'" />
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Blood Pressure</mat-label>
+                                                            <input matInput [formControlName]="'bloodPressure'" />
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Pulse</mat-label>
+                                                            <input matInput [formControlName]="'pulse'" />
+                                                        </mat-form-field>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>SpO2 %</mat-label>
+                                                            <input matInput [formControlName]="'SpO2'" />
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>BMI</mat-label>
+                                                            <input matInput [formControlName]="'BMI'" />
+                                                        </mat-form-field>
+                                                    </div>
+
+                                                </div>
+                                            </fieldset>
+
+
+                                        </div>
+
+                                    </div>
+
+                                </mat-tab>
+
+                                <mat-tab label="Observations">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab">
+                                            <label>Observations</label>
+                                        </div>
+                                        <div class="panel-body">
+                                            <fieldset class="scheduler-border" [formGroup]="vitalsForm">
+                                                <div class="row">
+                                                    <mat-form-field class="col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                                        appearance="outline">
+                                                        <mat-label>Select Visit Reason</mat-label>
+                                                        <mat-select [formControlName]="'visitReason'">
+                                                            <mat-option *ngFor="let item of visitReason"
+                                                                [value]="item.visitReasonID">
+                                                                {{ item.reason }}
+                                                            </mat-option>
+                                                        </mat-select>
+                                                    </mat-form-field>
+
+                                                </div>
+                                                <div class="row">
+                                                    <mat-form-field
+                                                        class="example-chip-list col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                                        appearance="fill">
+                                                        <mat-label>
+                                                            Complaints (Type and select or press enter to
+                                                            add...)
+                                                        </mat-label>
+                                                        <mat-chip-list #chipList aria-label="Fruit selection">
+                                                            <mat-chip *ngFor="let fruit of fruits"
+                                                                [selectable]="selectable" [removable]="removable"
+                                                                (removed)="remove(fruit)">
+                                                                {{fruit}}
+                                                                <button matChipRemove *ngIf="removable">
+                                                                    <mat-icon>cancel</mat-icon>
+                                                                </button>
+                                                            </mat-chip>
+                                                            <input #fruitInput [formControl]="fruitCtrl"
+                                                                [matAutocomplete]="auto" [matChipInputFor]="chipList"
+                                                                [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                                                                (matChipInputTokenEnd)="add($event)">
+                                                        </mat-chip-list>
+                                                        <mat-autocomplete #auto="matAutocomplete"
+                                                            (optionSelected)="selected($event)">
+                                                            <mat-option *ngFor="let fruit of filteredFruits | async"
+                                                                [value]="fruit.complaintName">
+                                                                {{fruit.complaintName}}
+                                                            </mat-option>
+                                                        </mat-autocomplete>
+                                                    </mat-form-field>
+
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab label="LabReports">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab">
+                                            <label>LabReports</label>
+                                        </div>
+                                        <div class="panel-body">
+                                            <fieldset class="scheduler-border" [formGroup]="vitalsForm">
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                        <label for="colFormLabelSm0" class="col-form-label ">Document
+                                                            Name</label>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                        <label for="colFormLabelSm1" class="col-form-label ">
+                                                            Upload File
+                                                        </label>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                        <p style="text-align: right; margin-top: -8px;">
+                                                            <button type="button" class="btn btn-primary btn-sm mr-1"
+                                                                (click)="addItem()">
+                                                                + Add
+                                                            </button>
+
+                                                        </p>
+                                                    </div>
+
+
+                                                </div>
+
+
+
+                                                <div formArrayName="items"
+                                                    *ngFor="let item of vitalsForm.get('items')['controls']; let i = index;">
+                                                    <ng-container [formGroupName]="i">
+                                                        <div class="row">
+                                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                                <mat-form-field appearance="outline">
+                                                                    <mat-select [formControlName]="'docType'">
+                                                                        <mat-option *ngFor="let item of docs"
+                                                                            [value]="item">
+                                                                            {{ item.docTypeNAme }}
+                                                                        </mat-option>
+                                                                    </mat-select>
+                                                                </mat-form-field>
+                                                            </div>
+
+
+                                                            <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                                <div class="header-icon" (click)="file.click()"
+                                                                    style=" margin-left: -19px; width: 100%; ">
+                                                                    <button type="button" class="btn btn-primary"
+                                                                        style="width: 100%; height: 57px !important; border-radius:5px;">
+
+                                                                        <span style="font-size:20px;">📎</span> File
+                                                                        Upload {{ i + 1 }}
+                                                                    </button>
+                                                                </div>
+                                                                <span style="display:none">
+                                                                    <input type="file" #file
+                                                                        (change)="detectFiles($event,item)"
+                                                                        class="form-control" formControlName="Image">
+                                                                </span>
+                                                                <!-- <small *ngIf="employees.controls[i].get('Image').touched && employees.controls[i].get('Image').errors?.required"
+                                               class="p-error">Document is required.</small> -->
+                                                            </div>
+
+
+                                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                                                                <div>
+                                                                    <input autocomplete="off"
+                                                                        class="form-control py-2 border-right-0 border"
+                                                                        formControlName="fileName" readonly
+                                                                        style="height: 57px !important;">
+                                                                </div>
+                                                            </div>
+
+
+
+
+                                                            <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12"
+                                                                style="padding-top: 16px; ">
+
+                                                                <button type="button">
+                                                                    <mat-icon svgIcon="heroicons_solid:trash"
+                                                                        (click)="DeleteItem(i)" style="color:red;">
+                                                                    </mat-icon>
+                                                                </button>
+                                                            </div>
+
+
+                                                        </div>
+                                                        <br />
+                                                    </ng-container>
+                                                </div>
+
+
+
+                                            </fieldset>
+
+                                        </div>
+                                    </div>
+                                </mat-tab>
+                                <mat-tab label="Medication">
+
+                                    <fieldset class="scheduler-border" [formGroup]="vitalsForm">
+                                        <table id="medication" class="mediPanel">
+                                            <tr>
+                                                <th>Medicine</th>
+                                                <th>Dose</th>
+                                                <th>When</th>
+                                                <th>Frequency</th>
+                                                <th>Duration</th>
+                                                <th>Notes</th>
+                                                <th></th>
+                                            </tr>
+                                            <tr formArrayName="medicationitems"
+                                                *ngFor="let item of vitalsForm.get('medicationitems')['controls']; let j = index;">
+                                                <ng-container [formGroupName]="j">
+                                                    <td >
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>medicine</mat-label>
+                                                            <mat-select [formControlName]="'medicine'" >
+                                                                <mat-option *ngFor="let item of medicinePrescepList" class="medication" 
+                                                                    [value]="item.medicineName">
+                                                                    <h4 mat-line> {{ item.medicineName }}</h4>
+                                                                    <p mat-line>Composition - {{ item.composition }}</p>                                                                  
+                                                                   
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </td>
+                                                   
+
+                                                    <td>
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>dose</mat-label>
+                                                            <mat-select [formControlName]="'dose'">
+                                                                <mat-option *ngFor="let item of dose"
+                                                                    [value]="item.label">
+                                                                    {{ item.label }}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </td>
+                                                    <td>
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>when</mat-label>
+                                                            <mat-select [formControlName]="'when'">
+                                                                <mat-option *ngFor="let item of when"
+                                                                    [value]="item.label">
+                                                                    {{ item.label }}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </td>
+                                                    <td>
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>frequencyListMedication</mat-label>
+                                                            <mat-select [formControlName]="'frequencyListMedication'">
+                                                                <mat-option *ngFor="let item of frequencyListMedication"
+                                                                    [value]="item.label">
+                                                                    {{ item.label }}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </td>
+                                                    <td>
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>duration</mat-label>
+                                                            <mat-select [formControlName]="'duration'">
+                                                                <mat-option *ngFor="let item of duration"
+                                                                    [value]="item.label">
+                                                                    {{ item.label }}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </td>
+                                                    <td>
+
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Notes</mat-label>
+                                                            <input matInput [formControlName]="'notes'" />
+                                                        </mat-form-field>
+                                                    </td>
+                                                    <td>
+                                                        <mat-icon style="color: #32CD32;cursor: pointer;"
+                                                            (click)="addMedicationItem()">add_box</mat-icon>
+
+                                                        <mat-icon style="color:#ff4081;cursor: pointer;"
+                                                            (click)="DeleteMedicationItem(j)">delete</mat-icon>
+                                                    </td>
+                                                    <br />
+                                                </ng-container>
+                                            </tr>
+
+
+                                        </table>
+                                        <table>
+                                            <tr>
+
+                                                <td> <button type="button" mat-button matDialogClose
+                                                        (click)="closePresceptionDetailsDialog()">Cancel</button>
+                                                    <button type="button" mat-raised-button color="accent"
+                                                        (click)="ViewPrescption('component2')">View</button>
+                                                </td>
+
+
+                                            </tr>
+                                        </table>
+                                    </fieldset>
+                                </mat-tab>
+                                <mat-tab label="Advice">
+
+
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab">
+                                            <label>Advice</label>
+                                        </div>
+                                        <div class="panel-body">
+                                            <fieldset class="scheduler-border" [formGroup]="vitalsForm">
+                                                <div class="row">
+                                                    <mat-form-field
+                                                        class="example-chip-list col-lg-12 col-md-12 col-sm-12 col-xs-12"
+                                                        appearance="fill">
+                                                        <input matInput [formControlName]="'advice'" />
+
+                                                    </mat-form-field>
+
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+
+                                </mat-tab>
+                                <mat-tab label="Next Visit">
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading" role="tab">
+                                            <label>Next Visit</label>
+                                        </div>
+                                        <div class="panel-body">
+                                            <fieldset class="scheduler-border" [formGroup]="vitalsForm">
+                                                <div class="row">
+                                                    <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12">
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Next visit after</mat-label>
+                                                            <input matInput [formControlName]="'nextVisit'" />
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12">
+
+                                                        <mat-form-field appearance="outline">
+                                                            <mat-label>Frequency</mat-label>
+                                                            <mat-select [formControlName]="'frequency'">
+                                                                <mat-option *ngFor="let item of frequencyList"
+                                                                    [value]="item.frequency">
+                                                                    {{ item.frequency }}
+                                                                </mat-option>
+                                                            </mat-select>
+                                                        </mat-form-field>
+                                                    </div>
+                                                    <!-- <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12">
+                                                        <label>OR</label>
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-3 col-sm-12 col-xs-12">
+                                                        <mat-form-field appearance="outline">
+                                                            <!-- <mat-label>Pick a date</mat-label> 
+                                                            <!-- <input matInput [formControlName]="'pickADate'" /> 
+                                                            <mat-form-field class="col-lg-12" appearance="outline">
+                                                                <mat-label>Pick a date</mat-label>
+                                                                <input matInput [matDatepicker]="picker"
+                                                                    [formControlName]="'pickADate'" />
+                                                                <mat-datepicker-toggle matSuffix [for]="picker">
+                                                                </mat-datepicker-toggle>
+                                                                <mat-datepicker #picker></mat-datepicker>
+                                                            </mat-form-field>
+                                                        </mat-form-field>
+                                                    </div> -->
+                                                </div>
+                                                <div class="flex justify-end">
+                                                    <button class="px-8" mat-flat-button [color]="'primary'" (click)="
+                    addUpdateVitals(vitalsForm.value);" type="button">
+                                                        Submit
+                                                    </button>
+                                                </div>
+                                            </fieldset>
+                                        </div>
+                                    </div>
+
+                                </mat-tab>
+                            </mat-tab-group>
+
+                        </div>
+                    </mat-tab>
+                    <mat-tab label="Previous Visit">
+
+                        <div class="row" *ngFor="let item of patientHistory ">
+
+                            <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12">
+                                <p class="date_1"> {{item.serviceDate | date : 'd MMMM'}}</p>
+
+                            </div>
+
+                            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
+                                <mat-accordion class="example-headers-align" multi>
+                                    <mat-expansion-panel [expanded]="true">
+                                        <mat-expansion-panel-header>
+                                            <mat-panel-title>
+                                                <span class="doctr">
+                                                    {{item.doctorName}}
+                                                </span>
+                                            </mat-panel-title>
+                                            <mat-panel-description>
+                                                See More
+                                            </mat-panel-description>
+
+
+
+                                        </mat-expansion-panel-header>
+
+
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-2 col-sm-8">
+                                                <label><span class="service">Service</span> <span class="service_d"> :
+                                                        {{item.serviceName}}</span></label><br />
+                                                <label><span class="service">Complaint Box</span> <span class="service_d">
+                                                        : {{item.reason}}</span></label><br />
+                                                <label><span class="service">Observation</span> <span class="service_d">
+                                                        :{{item.complaintName}} </span></label>
+                                                <br /> <br />
+                                                <label><span class="service">Vitals:</span> </label><br />
+                                                <label><span class="service_d">Weight </span> <span class="service_d">:
+                                                        {{item.weight}}</span></label><br />
+                                                <label><span class="service_d">Blood Group</span> <span
+                                                        class="service_d"> :{{item.bloodGroup}}</span></label><br />
+                                                <label><span class="service_d">Temp </span> <span class="service_d"> :
+                                                        {{item.temperature_F}}</span></label><br />
+                                                <label><span class="service_d">SpO2% </span> <span class="service_d">:
+                                                        {{item.spO2}}</span></label><br />
+                                                <label><span class="service_d">Blood Pressure </span> <span
+                                                        class="service_d"> : {{item.bp}}</span></label><br />
+                                                <label><span class="service_d">BMI</span> <span class="service_d"> :
+                                                        {{item.bmi}} </span></label><br />
+
+
+                                                <br /> <br />
+
+                                                <label>
+                                                    <span>
+                                                        <a href="http//google.co.in" target="_blank">
+                                                            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/PDF_file_icon.svg/121px-PDF_file_icon.svg.png " style="width: 30px; height: 30px;position: relative;top: 20px;left: -17px;" >
+                                                        </a>
+                                                    </span>
+                                                    <span class="service" style="padding-left:50;left: 30px;margin-left: 20px;">Lab Report : </span><span><input type="file" style="position: relative;bottom: 28px;left: 130px;"></span><span class="service_d">
+                                                      <!--- Hermatology_report.pdf-->
+                                                    </span>
+                                                </label><br />
+
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-12">
+                                                <table id="customers">
+                                                    <tr>
+                                                        <th>Medicine</th>
+                                                        <th>1/2 Dose</th>
+                                                        <th>Dose</th>
+                                                        <th>When</th>
+                                                        <th>Frequency</th>
+                                                        <th>Duration</th>
+                                                        <th>Notes</th>
+                                                    </tr>
+                                                    <tr *ngFor="let medList of item.medicineList ">
+                                                        <td><span class="service">{{medList.medicine}}</span>
+                                                            <span class="serviceFont" *ngFor="let item of medicinePrescepList">
+                                                                <div *ngIf="item.medicineName == medList.medicine">    
+                                                                   Composition - {{item.composition}}                                                        
+                                                                  </div>
+                                                            </span>
+                                                        </td>
+                                                        <td>{{medList.dose}}</td>
+                                                        <td>{{medList.when}}</td>
+                                                        <td>{{medList.when}}</td>
+                                                        <td>{{medList.frequencyListMedication}}</td>
+                                                        <td>{{medList.duration}}</td>
+                                                        <td>{{medList.notes}}</td>
+                                                    </tr>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </mat-expansion-panel>
+                                </mat-accordion>
+                            </div>
+                        </div>
+                    </mat-tab>
+                </mat-tab-group>
+            </div>
+        </div>
+    </div>
+
+
+
+</div>
+
+
+
+<ng-template #editCompanyModal>
+
+    <mat-dialog-content>
+        <fieldset>
+            <mat-icon aria-label="Close dialog" (click)="closeCompanyDetailsDialog()">close</mat-icon>
+            <!-- start preheader -->
+            <!-- <div class="preheader" style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
+        A preheader is the short summary text that follows the subject line when an email is viewed in the inbox.
+    </div> -->
+            <!-- end preheader -->
+            <!-- start body -->
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" id="component1">
+                <tr>
+                    <td align="center" bgcolor="#D2C7BA">
+
+
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                            <tr>
+                                <td class="payment_Receipt">
+                                    <img src="assets/images/logo/LOGO.png" style=" width: 100%;" />
+                                </td>
+                                <td class="heading_1">Payment Receipt</td>
+                            </tr>
+                        </table>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="center" bgcolor="">
+                        <table class="Token_No" border="0" cellpadding="0" cellspacing="0">
+                            <tr style="background-color:#fff">
+
+                                <td class="td_style">
+                                    <span>Token No</span>
+                                    <div class="tocken_no">{{receiptToken}}</div>
+                                </td>
+                                <td class="td_style">
+                                    <span>Appointment Date</span>
+                                    <div class="tocken_no">{{todayDataSourcePrintBookings[0].appointmentDate | date: 'dd-MM-yyyy'}}</div>
+                                </td>
+
+                            </tr>
+                            <tr style="background-color:#fff">
+
+                                <td class="td_style">
+                                    <span>ServiceName</span>
+                                    <div class="tocken_no">{{todayDataSourcePrintBookings[0].serviceName}}</div>
+                                </td>
+                                <td class="td_style">
+                                    <span>Patient Name</span>
+                                    <div class="tocken_no">{{todayDataSourcePrintBookings[0].patient}}</div>
+                                </td>
+
+                            </tr>
+
+                            <tr style="background-color:#fff">
+
+                                <td class="td_style">
+                                    <!-- <span>Token No</span> 
+                            <div class="tocken_no">0596147558</div> -->
+                                </td>
+                                <td class="td_style">
+                                    <span>Patient ID</span>
+                                    <div class="tocken_no">{{todayDataSourcePrintBookings[0].patientARCID}}</div>
+                                </td>
+
+                            </tr>
+
+
+
+
+                        </table>
+                        <table class="Payment_method_bgmcolr">
+                            <tr>
+                                <td class="Payment_row">
+                                    <table border="0" style="width: 100%;">
+                                        <tr>
+                                            <td class="td_table"><strong>Payment Method</strong></td>
+                                            <td class="td_table">
+                                                <strong>{{todayDataSourcePrintBookings[0].modeofPayment}}</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td class="td_table1">Item</td>
+                                            <td class="td_table1">{{todayDataSourcePrintBookings[0].payment}}</td>
+                                        </tr>
+
+                                        <tr>
+                                            <td class="td_table2"><strong>Total</strong></td>
+                                            <td class="td_table2">
+                                                <strong>{{todayDataSourcePrintBookings[0].payment}}</strong>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="center" bgcolor="" valign="top" width="100%">
+
+                        <table align="center" bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" width="100%"
+                            style="max-width: 600px;">
+                            <tr>
+                                <td align="center" valign="top" style="font-size: 0; border-bottom: 3px solid #d4dadf">
+
+                                    <div style="display: inline-block; width: 100%;vertical-align: top;">
+                                        <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                            <tr>
+                                                <td class="Adress_row" valign="top">
+                                                    <p style="margin-bottom: 5px;"><strong>Advance Rheumatology
+                                                            Center</strong></p>
+                                                    <p style="margin-top: 0;">,6-3-652, 1st Floor, Kautilya Building,
+                                                        near Erramanzil bus stop, Somajiguda, <br> Hyderabad, Telangana
+                                                        500082,Contact No:9088765677</p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="center" bgcolor="" style="padding: 7px;">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </mat-dialog-content>
+    <mat-dialog-actions class="border-top" style="float: right;
+    padding-bottom: 15px;">
+        <button type="button" mat-button matDialogClose (click)="closeCompanyDetailsDialog()">Cancel</button>
+        <button type="button" mat-raised-button color="accent" (click)="print('component1')">View</button>
+    </mat-dialog-actions>
+    <!-- </form> -->
+</ng-template>
+
+
+<ng-template #presecptionModal>
+
+    <mat-dialog-content>
+        <fieldset>
+
+            <mat-icon aria-label="Close dialog" (click)="closePrecesptionDialog()">close</mat-icon>
+            <table border="0" cellpadding="0" cellspacing="0" width="100%" id="component2">
+                <tr>
+                    <td align="center" bgcolor="#D2C7BA">
+                        <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
+                            <tr>
+                                <td class="payment_Receipt">
+                                    <img src="assets/images/logo/LOGO.png" style=" width: 100%;" />
+                                </td>
+                                <td class="heading_1">Prescription</td>
+                            </tr>
+                        </table>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="center" bgcolor="">
+                        <table class="Token_No" border="0" cellpadding="0" cellspacing="0">
+                            <tr style="background-color:#fff">
+
+
+                                <td class="td_style">
+                                    <span>Appointment Date</span>
+                                    <div class="tocken_no">{{detailData.appointmentDate}}</div>
+                                </td>
+                                <td class="td_style">
+                                    <span>Patient ID</span>
+                                    <div class="tocken_no">{{detailData.patientARCID}}</div>
+                                </td>
+
+                            </tr>
+                            <tr style="background-color:#fff">
+
+                                <td class="td_style">
+                                    <span>ServiceName</span>
+                                    <div class="tocken_no">{{detailData.serviceName}}</div>
+                                </td>
+                                <td class="td_style">
+                                    <span>Patient Name</span>
+                                    <div class="tocken_no">{{detailData.patient}}</div>
+                                </td>
+                            </tr>
+
+                        </table>
+                        <table class="Payment_method_bgmcolr">
+                            <tr>
+                                <td class="Payment_row">
+                                    <table id="customers">
+                                        <tr>
+                                            <th>Medicine</th>
+                                            <th>Dose</th>
+                                            <th>When</th>
+                                            <th>Frequency</th>
+                                            <th>Duration</th>
+                                            <th>Notes</th>
+                                        </tr>
+                                        <tr *ngFor="let medList of vitalsForm.value.medicationitems" class="td_table2">
+                                            <td><span class="service">{{medList.medicine}}</span><br />  
+                                                <span class="serviceFont" *ngFor="let item of medicinePrescepList">
+                                                    <div *ngIf="item.medicineName == medList.medicine">    
+                                                       Composition - {{item.composition}}                                                        
+                                                      </div>
+                                                </span>
+                                               <!-- <span class="service"> Composition - {{medList.medicine}}    </span>                                          -->
+                                            </td>
+                                            <td>{{medList.dose}}</td>
+                                            <td>{{medList.when}}</td>
+                                            <td>{{medList.frequencyListMedication}}</td>
+                                            <td>{{medList.duration}}</td>
+                                            <td>{{medList.notes}}</td>
+                                        </tr>
+                                    </table>
+
+                                </td>
+                            </tr>
+                        </table>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="center" bgcolor="" valign="top" width="100%">
+
+                        <table align="center" bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" width="100%"
+                            style="max-width: 600px;">
+                            <tr>
+                                <td align="center" valign="top" style="font-size: 0; border-bottom: 3px solid #d4dadf">
+
+                                    <div style="display: inline-block; width: 100%;vertical-align: top;">
+                                        <table align="left" border="0" cellpadding="0" cellspacing="0" width="100%">
+                                            <tr>
+                                                <td class="Adress_row" valign="top">
+                                                    <p style="margin-bottom: 5px;"><strong>Advance Rheumatology
+                                                            Center</strong></p>
+                                                    <p style="margin-top: 0;">6-3-652, 1st Floor, Kautilya Building,
+                                                        near Erramanzil bus stop, Somajiguda, <br> Hyderabad, Telangana
+                                                        500082,Contact No:9088765677 </p>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+
+                                </td>
+                            </tr>
+                        </table>
+
+                    </td>
+                </tr>
+
+                <tr>
+                    <td align="center" bgcolor="" style="padding: 10px;">
+                    </td>
+                </tr>
+            </table>
+        </fieldset>
+    </mat-dialog-content>
+    <mat-dialog-actions style="float:right;">
+        <button type="button" mat-button matDialogClose (click)="closePrecesptionDialog()">Cancel</button>
+        <button type="button" mat-raised-button color="accent" (click)="printPresecption('component2')">View prescription</button>
+    </mat-dialog-actions>
+    <!-- </form> -->
+</ng-template>

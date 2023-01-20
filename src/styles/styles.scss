@@ -1,0 +1,42 @@
+/* ----------------------------------------------------------------------------------------------------- */
+/*  @ Import/write your custom styles here.
+/*  @ Styles from this file will override 'vendors.scss' and Fuse's base styles.
+/* ----------------------------------------------------------------------------------------------------- */
+.mat-simple-snackbar-action {
+    flex-shrink: 0;
+    margin: -8px -8px -8px 8px;
+}
+
+.mat-simple-snackbar-action {
+    color: #ff4081;
+}
+
+.mat-simple-snackbar-action {
+    line-height: 1;
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: 500;
+}
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px!important;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: #838383;
+}
+::-webkit-scrollbar-track {
+    background-color: #c1c1c1;
+    border-radius: 20px;
+}
+.bg-primary {
+    color: #fff;
+    background-color: #666666 !important;
+}
+th.mat-header-cell, td.mat-cell, td.mat-footer-cell {
+    padding: 0px;
+    border-bottom-width: 1px;
+    border-bottom-style: solid;
+    padding-top: 6px !important;
+    padding-bottom: 6px !important;
+}
