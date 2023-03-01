@@ -1,0 +1,2991 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "CMS.API",
+    "version": "v1"
+  },
+  "paths": {
+    "/api/Doctor/GetAllDoctors": {
+      "get": {
+        "tags": [
+          "Doctor"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Doctors"
+            }
+          }
+        }
+      }
+    },
+    "/api/Doctor/GetDoctor/{DoctorID}": {
+      "get": {
+        "tags": [
+          "Doctor"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "DoctorID",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Doctors"
+            }
+          }
+        }
+      }
+    },
+    "/api/Login/UserExist": {
+      "post": {
+        "tags": [
+          "Login"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Login"
+            }
+          }
+        }
+      }
+    },
+    "/api/MedicalReports/GetAllMedicalReports": {
+      "get": {
+        "tags": [
+          "MedicalReports"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MedicalReports"
+            }
+          }
+        }
+      }
+    },
+    "/api/MedicalReports/GetMedicalReport/{MedicalReportID}": {
+      "get": {
+        "tags": [
+          "MedicalReports"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "MedicalReportID",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MedicalReports"
+            }
+          }
+        }
+      }
+    },
+    "/api/MedicalReports/AddMedicalReport": {
+      "post": {
+        "tags": [
+          "MedicalReports"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/MedicalReports"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MedicalReports"
+            }
+          }
+        }
+      }
+    },
+    "/api/MedicalReports/UpdateMedicalReport": {
+      "put": {
+        "tags": [
+          "MedicalReports"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/MedicalReports"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MedicalReports"
+            }
+          }
+        }
+      }
+    },
+    "/api/MedicalReports/DeleteMedicalReport": {
+      "delete": {
+        "tags": [
+          "MedicalReports"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/MedicalReports"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MedicalReports"
+            }
+          }
+        }
+      }
+    },
+    "/api/Patients/GetAllPatients": {
+      "get": {
+        "tags": [
+          "Patients"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Patients"
+            }
+          }
+        }
+      }
+    },
+    "/api/Patients/GetPatient/{PatientID}": {
+      "get": {
+        "tags": [
+          "Patients"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PatientID",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Patients"
+            }
+          }
+        }
+      }
+    },
+    "/api/Patients/AddUpdatePatient": {
+      "post": {
+        "tags": [
+          "Patients"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Patients"
+            }
+          }
+        }
+      }
+    },
+    "/api/Patients/AddRegisterPatientAppointment": {
+      "post": {
+        "tags": [
+          "Patients"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/RegisterPatientAppointment"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/RegisterPatientAppointment"
+            }
+          }
+        }
+      }
+    },
+    "/api/Patients/DeletePatient": {
+      "delete": {
+        "tags": [
+          "Patients"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Patients"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Patients"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/GetAllAppointments": {
+      "get": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AppointmentDetails"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/GetAllAppointments_Distict": {
+      "get": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AppointmentDetails"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/GetReportPatientList": {
+      "post": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ReportList"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AppointmentDetails"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/GetMedicineList": {
+      "get": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MedicineList"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/AddUpdateMedicine": {
+      "post": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/MedicineList"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MedicineList"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/GetAppointment/{AppointmentID}": {
+      "get": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "AppointmentID",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AppointmentDetails"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/AddUpdateAppointment": {
+      "post": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/PatientsAppointments"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/PatientsAppointments"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/DeleteAppointment": {
+      "post": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/PatientsAppointments"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/PatientsAppointments"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/VitalsCRUD": {
+      "post": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Vitals"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Docs"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/DocsCrud": {
+      "post": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Docs"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Docs"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/VisitReason_Crud": {
+      "post": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/VisitReason"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/VisitReason"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/PatientHistory": {
+      "post": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/PatientHistory"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/PatientHistory"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/ComplaintsCrud": {
+      "post": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Complaints"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Complaints"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/GetComplaintsXML": {
+      "post": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/ComplaintsList"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/ComplaintsList"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/GetDocumentsXML": {
+      "post": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/VitalDocs"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/VitalDocs"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/GetMedicineXML": {
+      "post": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/MedicationList"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/VitalDocs"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/Upload": {
+      "post": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/RegisterationCRUD": {
+      "post": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/Registeration"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Registeration"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/DoctorsAvailability": {
+      "post": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DoctorsAvailability"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DoctorsAvailability"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/DoctorsAvailabilitySlots": {
+      "post": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DoctorsAvailability"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DoctorsAvailabilitySlots"
+            }
+          }
+        }
+      }
+    },
+    "/api/PatientsAppointments/GetAvailabilityXML": {
+      "post": {
+        "tags": [
+          "PatientsAppointments"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/DoctorsAvailability"
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/DoctorsAvailabilitySlots"
+            }
+          }
+        }
+      }
+    },
+    "/api/Registration/GetAllUsers": {
+      "get": {
+        "tags": [
+          "Registration"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Registration"
+            }
+          }
+        }
+      }
+    },
+    "/api/Registration/GetUser/{RegistrationID}": {
+      "get": {
+        "tags": [
+          "Registration"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "RegistrationID",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Registration"
+            }
+          }
+        }
+      }
+    },
+    "/api/Registration/AddUser": {
+      "post": {
+        "tags": [
+          "Registration"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Registration"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Registration"
+            }
+          }
+        }
+      }
+    },
+    "/api/Registration/UpdateUser": {
+      "put": {
+        "tags": [
+          "Registration"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Registration"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Registration"
+            }
+          }
+        }
+      }
+    },
+    "/api/Registration/DeleteUser": {
+      "delete": {
+        "tags": [
+          "Registration"
+        ],
+        "consumes": [
+          "application/json",
+          "text/json",
+          "application/*+json"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "body",
+            "schema": {
+              "$ref": "#/definitions/Registration"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Registration"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetAllAppointmentBills": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AppointmentBill"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetAppointmentBill/{PriceID}": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "PriceID",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/AppointmentBill"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetAllStates": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/State"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetState/{StateID}": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "StateID",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/State"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetServices": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Services"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetService/{ServiceID}": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ServiceID",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Services"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetSlots": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Slots"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetSlot/{SlotID}": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "SlotID",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Slots"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetAllGenders": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Genders"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetGender/{GenderID}": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "GenderID",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Genders"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetAllMOP": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MOP"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetMOP/{ModeofPaymentID}": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ModeofPaymentID",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/MOP"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetStatuses": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetStatus/{StatusId}": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "StatusID",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Status"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetAllRoles": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Roles"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetRole/{RoleID}": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "RoleID",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Roles"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetAllSpecializations": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Specialization"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetSpecialization/{SpecializationID}": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "SpecializationID",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Specialization"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetAllTypeofReports": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TypeofReports"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetTypeofReport/{TypeofReportID}": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "TypeofReportID",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/TypeofReports"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetAllDiscounts": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Discounts"
+            }
+          }
+        }
+      }
+    },
+    "/api/Utilities/GetDiscount/{DiscountID}": {
+      "get": {
+        "tags": [
+          "Utilities"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "parameters": [
+          {
+            "in": "path",
+            "name": "DiscountID",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "$ref": "#/definitions/Discounts"
+            }
+          }
+        }
+      }
+    },
+    "/WeatherForecast": {
+      "get": {
+        "tags": [
+          "WeatherForecast"
+        ],
+        "produces": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": {
+                "$ref": "#/definitions/WeatherForecast"
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "AppointmentBill": {
+      "type": "object",
+      "properties": {
+        "priceID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "price": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "AppointmentDetails": {
+      "type": "object",
+      "properties": {
+        "vitalsID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "appointmentID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "patientARCID": {
+          "type": "string"
+        },
+        "doctorID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "patientID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "doctor": {
+          "type": "string"
+        },
+        "patient": {
+          "type": "string"
+        },
+        "patientName": {
+          "type": "string"
+        },
+        "patientLastName": {
+          "type": "string"
+        },
+        "serviceID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "serviceName": {
+          "type": "string"
+        },
+        "slotID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "slotTime": {
+          "type": "string"
+        },
+        "statusID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "statusName": {
+          "type": "string"
+        },
+        "serviceDate": {
+          "type": "string"
+        },
+        "appointmentDate": {
+          "type": "string"
+        },
+        "priceID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "price": {
+          "type": "string"
+        },
+        "payment": {
+          "type": "string"
+        },
+        "duePayment": {
+          "type": "string"
+        },
+        "discountID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "discount": {
+          "type": "string"
+        },
+        "appointmentBill": {
+          "type": "string"
+        },
+        "modeofPaymentID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "age": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "genderID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "modeofPayment": {
+          "type": "string"
+        },
+        "createdDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "updatedDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "doctorCompleted": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "waitingTime": {
+          "type": "string"
+        },
+        "visitCount": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "status": {
+          "type": "string"
+        },
+        "receiptToken": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "Complaints": {
+      "type": "object",
+      "properties": {
+        "complaintIDs": {
+          "type": "string"
+        },
+        "documents": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "complaintID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "complaintName": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "createdDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "createdBy": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "modifiedDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modifiedBy": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "flag": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "xml": {
+          "type": "string"
+        }
+      }
+    },
+    "ComplaintsList": {
+      "type": "object",
+      "properties": {
+        "vitalsID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "complaintIDs": {
+          "type": "string"
+        },
+        "complaintName": {
+          "type": "string"
+        }
+      }
+    },
+    "ComplaList": {
+      "type": "object",
+      "properties": {
+        "complaintIDs": {
+          "type": "string"
+        },
+        "complaintName": {
+          "type": "string"
+        }
+      }
+    },
+    "Discounts": {
+      "type": "object",
+      "properties": {
+        "discountID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "discount": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "Docs": {
+      "type": "object",
+      "properties": {
+        "documents": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "documentTypeID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "docTypeNAme": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "createdDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "createdBy": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "modifiedDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modifiedBy": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "flag": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "xml": {
+          "type": "string"
+        },
+        "visitReason": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VisitReason"
+          }
+        }
+      }
+    },
+    "DocsList": {
+      "type": "object",
+      "properties": {
+        "vitalsID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "documentTypeID": {
+          "type": "string"
+        },
+        "docTypeNAme": {
+          "type": "string"
+        }
+      }
+    },
+    "Doctors": {
+      "type": "object",
+      "properties": {
+        "roleID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "doctorID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "doctor": {
+          "type": "string"
+        },
+        "roleName": {
+          "type": "string"
+        },
+        "specialization": {
+          "type": "string"
+        }
+      }
+    },
+    "DoctorsAvailability": {
+      "type": "object",
+      "properties": {
+        "doctorAvailabilityID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "doctorID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "createdDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "createdBy": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "modifiedDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modifiedBy": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "flag": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "slots": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DoctorsAvailabilitySlots"
+          }
+        }
+      }
+    },
+    "DoctorsAvailabilitySlots": {
+      "type": "object",
+      "properties": {
+        "day": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "start": {
+          "type": "string"
+        },
+        "ending": {
+          "type": "string"
+        }
+      }
+    },
+    "Genders": {
+      "type": "object",
+      "properties": {
+        "genderID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "gender": {
+          "type": "string"
+        }
+      }
+    },
+    "Login": {
+      "type": "object",
+      "properties": {
+        "registrationID": {
+          "type": "string"
+        },
+        "roleID": {
+          "type": "string"
+        },
+        "roleName": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      }
+    },
+    "MedicalReports": {
+      "type": "object",
+      "properties": {
+        "medicalReportID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "appointmentID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "documentTypeID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "filePath": {
+          "type": "string"
+        },
+        "typeofReportID": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "MedicationList": {
+      "type": "object",
+      "properties": {
+        "vitalsID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "medicine": {
+          "type": "string"
+        },
+        "dose": {
+          "type": "string"
+        },
+        "when": {
+          "type": "string"
+        },
+        "frequencyListMedication": {
+          "type": "string"
+        },
+        "duration": {
+          "type": "string"
+        },
+        "notes": {
+          "type": "string"
+        }
+      }
+    },
+    "MedicineList": {
+      "type": "object",
+      "properties": {
+        "medicineId": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "medicineName": {
+          "type": "string"
+        },
+        "composition": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string"
+        }
+      }
+    },
+    "MOP": {
+      "type": "object",
+      "properties": {
+        "modeofPaymentID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "modeofPayment": {
+          "type": "string"
+        }
+      }
+    },
+    "PatientHistory": {
+      "type": "object",
+      "properties": {
+        "patientID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "patientName": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "age": {
+          "type": "string"
+        },
+        "doctorName": {
+          "type": "string"
+        },
+        "gender": {
+          "type": "string"
+        },
+        "serviceDate": {
+          "type": "string"
+        },
+        "weight": {
+          "type": "string"
+        },
+        "bloodGroup": {
+          "type": "string"
+        },
+        "temperature_F": {
+          "type": "string"
+        },
+        "serum_Creatinine": {
+          "type": "string"
+        },
+        "bp": {
+          "type": "string"
+        },
+        "pulse": {
+          "type": "string"
+        },
+        "spO2": {
+          "type": "string"
+        },
+        "bmi": {
+          "type": "string"
+        },
+        "visitReasonID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "appointmentID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "genderID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "vitalsID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "complaintIDs": {
+          "type": "string"
+        },
+        "documents": {
+          "type": "string"
+        },
+        "serviceName": {
+          "type": "string"
+        }
+      }
+    },
+    "Patients": {
+      "type": "object",
+      "properties": {
+        "patientID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "patientName": {
+          "type": "string"
+        },
+        "patientLastName": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "address": {
+          "type": "string"
+        },
+        "stateID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "city": {
+          "type": "string"
+        },
+        "pincode": {
+          "type": "string"
+        },
+        "dob": {
+          "type": "string"
+        },
+        "age": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "genderID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "roleID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "referBy": {
+          "type": "string"
+        },
+        "action": {
+          "type": "string"
+        }
+      }
+    },
+    "PatientsAppointments": {
+      "type": "object",
+      "properties": {
+        "patientID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "registrationID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "appointmentID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "serviceID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "slotID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "statusID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "serviceDate": {
+          "type": "string"
+        },
+        "priceID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "payment": {
+          "format": "double",
+          "type": "number"
+        },
+        "duePayment": {
+          "format": "double",
+          "type": "number"
+        },
+        "patientName": {
+          "type": "string"
+        },
+        "patientLastName": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "age": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "genderID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "action": {
+          "type": "string"
+        },
+        "slot": {
+          "type": "string"
+        },
+        "discountID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "appointmentBill": {
+          "type": "string"
+        },
+        "modeofPaymentID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "patientStatus": {
+          "type": "string"
+        }
+      }
+    },
+    "Registeration": {
+      "type": "object",
+      "properties": {
+        "registrationID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "roleID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "genderID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "stateRegNo": {
+          "type": "string"
+        },
+        "experience": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "address": {
+          "type": "string"
+        },
+        "specializationID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "qualification": {
+          "type": "string"
+        },
+        "institution": {
+          "type": "string"
+        },
+        "aboutMe": {
+          "type": "string"
+        },
+        "doctorsAvailability": {
+          "type": "boolean"
+        },
+        "clinicName": {
+          "type": "string"
+        },
+        "photo": {
+          "type": "string"
+        },
+        "statusID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "expert": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "createdDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "createdBy": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "modifiedDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modifiedBy": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "isDelete": {
+          "type": "string"
+        },
+        "flag": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "RegisterPatientAppointment": {
+      "type": "object",
+      "properties": {
+        "patientID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "patientName": {
+          "type": "string"
+        },
+        "patientLastName": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "age": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "genderID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "appointmentID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "registrationID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "serviceID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "slot": {
+          "type": "string"
+        },
+        "slotID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "statusID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "serviceDate": {
+          "type": "string"
+        },
+        "priceID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "payment": {
+          "format": "double",
+          "type": "number"
+        },
+        "duePayment": {
+          "format": "double",
+          "type": "number"
+        },
+        "discountID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "appointmentBill": {
+          "type": "string"
+        },
+        "modeofPaymentID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "patientStatus": {
+          "type": "string"
+        }
+      }
+    },
+    "Registration": {
+      "type": "object",
+      "properties": {
+        "registrationID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "roleID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        },
+        "mobile": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        },
+        "genderID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "stateRegNo": {
+          "type": "string"
+        },
+        "experience": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "address": {
+          "type": "string"
+        },
+        "specializationID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "qualification": {
+          "type": "string"
+        },
+        "institution": {
+          "type": "string"
+        },
+        "aboutMe": {
+          "type": "string"
+        },
+        "doctorsAvailability": {
+          "type": "boolean"
+        },
+        "clinicName": {
+          "type": "string"
+        },
+        "photo": {
+          "type": "string"
+        },
+        "statusID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "expert": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "ReportList": {
+      "type": "object",
+      "properties": {
+        "fromDate": {
+          "type": "string"
+        },
+        "toDate": {
+          "type": "string"
+        }
+      }
+    },
+    "Roles": {
+      "type": "object",
+      "properties": {
+        "roleID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "roleName": {
+          "type": "string"
+        }
+      }
+    },
+    "Services": {
+      "type": "object",
+      "properties": {
+        "serviceID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "serviceName": {
+          "type": "string"
+        }
+      }
+    },
+    "Slots": {
+      "type": "object",
+      "properties": {
+        "slotID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "slotTime": {
+          "type": "string"
+        }
+      }
+    },
+    "Specialization": {
+      "type": "object",
+      "properties": {
+        "specializationID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "name": {
+          "type": "string"
+        }
+      }
+    },
+    "State": {
+      "type": "object",
+      "properties": {
+        "stateID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "stateName": {
+          "type": "string"
+        }
+      }
+    },
+    "Status": {
+      "type": "object",
+      "properties": {
+        "statusID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "statusName": {
+          "type": "string"
+        }
+      }
+    },
+    "TypeofReports": {
+      "type": "object",
+      "properties": {
+        "typeofReportID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "typeofReport": {
+          "type": "string"
+        }
+      }
+    },
+    "VisitReason": {
+      "type": "object",
+      "properties": {
+        "visitReasonID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "reason": {
+          "type": "string"
+        },
+        "status": {
+          "type": "boolean"
+        },
+        "createdDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "createdBy": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "modifiedDate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "modifiedBy": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "flag": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "xml": {
+          "type": "string"
+        }
+      }
+    },
+    "VitalDocs": {
+      "type": "object",
+      "properties": {
+        "appointmentID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "documentTypeID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "docTypeNAme": {
+          "type": "string"
+        },
+        "docName": {
+          "type": "string"
+        },
+        "vitalsID": {
+          "format": "int32",
+          "type": "integer"
+        }
+      }
+    },
+    "Vitals": {
+      "type": "object",
+      "properties": {
+        "vitalsID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "patientID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "appointmentID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "weight": {
+          "type": "string"
+        },
+        "bloodGroup": {
+          "type": "string"
+        },
+        "temperature_F": {
+          "type": "string"
+        },
+        "serum_Creatinine": {
+          "type": "string"
+        },
+        "bp": {
+          "type": "string"
+        },
+        "pulse": {
+          "type": "string"
+        },
+        "spO2": {
+          "type": "string"
+        },
+        "bmi": {
+          "type": "string"
+        },
+        "visitReasonID": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "doctorCompleted": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "comp": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/ComplaList"
+          }
+        },
+        "medicine": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/MedicationList"
+          }
+        },
+        "docs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/DocsList"
+          }
+        },
+        "vitalDocs": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/VitalDocs"
+          }
+        },
+        "flag": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "comp1": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "complaintIDs": {
+          "type": "string"
+        },
+        "advice": {
+          "type": "string"
+        },
+        "nextVisit": {
+          "type": "string"
+        },
+        "frequency": {
+          "type": "string"
+        },
+        "pickADate": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "status": {
+          "type": "string"
+        }
+      }
+    },
+    "WeatherForecast": {
+      "type": "object",
+      "properties": {
+        "date": {
+          "format": "date-time",
+          "type": "string"
+        },
+        "temperatureC": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "temperatureF": {
+          "format": "int32",
+          "type": "integer",
+          "readOnly": true
+        },
+        "summary": {
+          "type": "string"
+        }
+      }
+    }
+  }
+}

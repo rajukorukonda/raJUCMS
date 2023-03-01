@@ -1,0 +1,5 @@
+2023-01-23T19:00:07.6930897+05:30  [INF] Now listening on: "https://localhost:5001" (d826f4b8)
+2023-01-23T19:00:07.6988737+05:30  [INF] Now listening on: "http://localhost:5000" (d826f4b8)
+2023-01-23T19:00:07.7009806+05:30  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2023-01-23T19:00:07.7027956+05:30  [INF] Hosting environment: "Development" (c3307c92)
+2023-01-23T19:00:07.7048763+05:30  [INF] Content root path: "D:\cmsapi\CMS.API" (b5d60022)
