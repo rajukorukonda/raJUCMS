@@ -1,0 +1,20 @@
+   <!-- (click)="next(horizontalStepperForm.value);" -->
+
+horizontalStepperForm.value.step1.slot.slot == 'No Slot' ||
+
+horizontalStepperForm.value.step1.slot.slot == 'No Slot' ||
+
+ <!-- [disabled]="
+                                        horizontalStepperStep1.stepControl
+                                            .pristine ||
+                                        horizontalStepperStep1.stepControl
+                                            .invalid -->
+
+  this.step1.reset();     
+       this.step2.reset();  
+       this.onSearchClear();
+
+mat tab horizontal and vertical in one screen
+https://stackoverflow.com/questions/49809702/vertical-tabs-with-angular-material
+https://stackblitz.com/edit/angular-tab-vert?file=src%2Fapp%2Ftab-group-basic-example.html
+https://github.com/careydevelopment/careydevelopmentcrm/blob/0.2.6-click-to-edit-contacts/src/app/features/contacts/view-contacts/view-contacts.component.html

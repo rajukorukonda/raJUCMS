@@ -1,0 +1,65 @@
+2022-06-30T10:49:57.8993435+05:30  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-06-30T10:49:57.9165372+05:30  [INF] Hosting environment: "Development" (c3307c92)
+2022-06-30T10:49:57.9249279+05:30  [INF] Content root path: "D:\CMS\CMSWebAPI\CMSWebAPI\CMS.API" (b5d60022)
+2022-06-30T10:50:10.0365989+05:30 80000904-0001-f700-b63f-84710c7967bb [ERR] Exception at Login Method: System.Data.SqlClient.SqlException (0x80131904): Login failed for user 'cms'.
+   at System.Data.ProviderBase.DbConnectionPool.CheckPoolBlockingPeriod(Exception e)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at Dapper.SqlMapper.QueryImpl[T](IDbConnection cnn, CommandDefinition command, Type effectiveType)+MoveNext() in /_/Dapper/SqlMapper.cs:line 1082
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Dapper.SqlMapper.Query[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Boolean buffered, Nullable`1 commandTimeout, Nullable`1 commandType) in /_/Dapper/SqlMapper.cs:line 725
+   at CMS.Service.Dapperr.GetAll[T](String sp, DynamicParameters parms, CommandType commandType) in D:\CMS\CMSWebAPI\CMSWebAPI\CMS.Service\Dapper.cs:line 45
+   at CMS.Repository.DoctorRepository.GetAllDoctors() in D:\CMS\CMSWebAPI\CMSWebAPI\CMS.Repository\DoctorRepository.cs:line 96
+   at CMS.API.Controllers.DoctorController.GetAllDoctors() in D:\CMS\CMSWebAPI\CMSWebAPI\CMS.API\Controllers\DoctorController.cs:line 104
+ClientConnectionId:4bd8f1b8-2ee5-4c29-801a-0e71763a380b
+Error Number:18456,State:1,Class:14 (9b8fc15b)
+2022-06-30T10:51:22.7632764+05:30 800007e5-0000-f100-b63f-84710c7967bb [ERR] Exception at Login Method: System.Data.SqlClient.SqlException (0x80131904): Login failed for user 'cms'.
+   at System.Data.ProviderBase.DbConnectionPool.CheckPoolBlockingPeriod(Exception e)
+   at System.Data.ProviderBase.DbConnectionPool.CreateObject(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.UserCreateRequest(DbConnection owningObject, DbConnectionOptions userOptions, DbConnectionInternal oldConnection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, UInt32 waitForMultipleObjectsTimeout, Boolean allowCreate, Boolean onlyOneCheckConnection, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionPool.TryGetConnection(DbConnection owningObject, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionFactory.TryGetConnection(DbConnection owningConnection, TaskCompletionSource`1 retry, DbConnectionOptions userOptions, DbConnectionInternal oldConnection, DbConnectionInternal& connection)
+   at System.Data.ProviderBase.DbConnectionInternal.TryOpenConnectionInternal(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.ProviderBase.DbConnectionClosed.TryOpenConnection(DbConnection outerConnection, DbConnectionFactory connectionFactory, TaskCompletionSource`1 retry, DbConnectionOptions userOptions)
+   at System.Data.SqlClient.SqlConnection.TryOpen(TaskCompletionSource`1 retry)
+   at System.Data.SqlClient.SqlConnection.Open()
+   at Dapper.SqlMapper.QueryImpl[T](IDbConnection cnn, CommandDefinition command, Type effectiveType)+MoveNext() in /_/Dapper/SqlMapper.cs:line 1082
+   at System.Collections.Generic.List`1..ctor(IEnumerable`1 collection)
+   at System.Linq.Enumerable.ToList[TSource](IEnumerable`1 source)
+   at Dapper.SqlMapper.Query[T](IDbConnection cnn, String sql, Object param, IDbTransaction transaction, Boolean buffered, Nullable`1 commandTimeout, Nullable`1 commandType) in /_/Dapper/SqlMapper.cs:line 725
+   at CMS.Service.Dapperr.GetAll[T](String sp, DynamicParameters parms, CommandType commandType) in D:\CMS\CMSWebAPI\CMSWebAPI\CMS.Service\Dapper.cs:line 45
+   at CMS.Repository.DoctorRepository.GetAllDoctors() in D:\CMS\CMSWebAPI\CMSWebAPI\CMS.Repository\DoctorRepository.cs:line 96
+   at CMS.API.Controllers.DoctorController.GetAllDoctors() in D:\CMS\CMSWebAPI\CMSWebAPI\CMS.API\Controllers\DoctorController.cs:line 104
+ClientConnectionId:bc58acab-6842-4829-b36d-eebf98f3a896
+Error Number:18456,State:1,Class:14 (38b9410b)
+2022-06-30T10:52:29.1687875+05:30  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-06-30T10:52:29.1835645+05:30  [INF] Hosting environment: "Development" (c3307c92)
+2022-06-30T10:52:29.1865146+05:30  [INF] Content root path: "D:\CMS\CMSWebAPI\CMSWebAPI\CMS.API" (b5d60022)
+2022-06-30T12:05:55.4469172+05:30  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-06-30T12:05:55.4559759+05:30  [INF] Hosting environment: "Development" (c3307c92)
+2022-06-30T12:05:55.4580279+05:30  [INF] Content root path: "D:\CMS\CMSWebAPI\CMSWebAPI\CMS.API" (b5d60022)
+2022-06-30T12:44:54.0383622+05:30  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-06-30T12:44:54.0469763+05:30  [INF] Hosting environment: "Development" (c3307c92)
+2022-06-30T12:44:54.0495201+05:30  [INF] Content root path: "D:\CMS\CMSWebAPI\CMSWebAPI\CMS.API" (b5d60022)
+2022-06-30T13:01:57.6787458+05:30  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-06-30T13:01:57.6915247+05:30  [INF] Hosting environment: "Development" (c3307c92)
+2022-06-30T13:01:57.6945996+05:30  [INF] Content root path: "D:\CMS\CMSWebAPI\CMSWebAPI\CMS.API" (b5d60022)
+2022-06-30T13:43:45.0218301+05:30  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-06-30T13:43:45.0329344+05:30  [INF] Hosting environment: "Development" (c3307c92)
+2022-06-30T13:43:45.0369625+05:30  [INF] Content root path: "D:\CMS\CMSWebAPI\CMSWebAPI\CMS.API" (b5d60022)
+2022-06-30T19:54:00.7780129+05:30  [INF] Application started. Press Ctrl+C to shut down. (dcaefe54)
+2022-06-30T19:54:00.7931571+05:30  [INF] Hosting environment: "Development" (c3307c92)
+2022-06-30T19:54:00.7953968+05:30  [INF] Content root path: "D:\CMS\CMSWebAPI\CMSWebAPI\CMS.API" (b5d60022)
+2022-06-30T19:57:04.4777975+05:30 800006f4-0002-f500-b63f-84710c7967bb [INF] end (b0c485d7)
+2022-06-30T19:57:04.6583973+05:30 8000089d-0002-f600-b63f-84710c7967bb [INF] end (b0c485d7)
+2022-06-30T19:57:05.2812535+05:30 800007ee-0000-f100-b63f-84710c7967bb [INF] end (b0c485d7)
+2022-06-30T19:57:06.1842393+05:30 80000a56-0001-fa00-b63f-84710c7967bb [INF] end (b0c485d7)
